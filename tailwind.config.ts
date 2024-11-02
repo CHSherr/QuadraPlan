@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { PluginAPI } from "tailwindcss/types/config";
 
 const config: Config = {
   content: [
@@ -12,8 +13,30 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+
+      writingMode: {
+        "vertical-rl": "vertical-rl",
+        "vertical-lr": "vertical-lr",
+      },
+      textOrientation: {
+        upright: "upright",
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }: PluginAPI) {
+      addUtilities({
+        ".writing-mode-vertical-rl": {
+          writingMode: "vertical-rl",
+        },
+        ".writing-mode-vertical-lr": {
+          writingMode: "vertical-lr",
+        },
+        ".text-orientation-upright": {
+          textOrientation: "upright",
+        },
+      });
+    },
+  ],
 };
 export default config;
